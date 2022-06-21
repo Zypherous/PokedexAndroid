@@ -19,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     EditText etDataInput;
     Button simpleRequestBtn, getPokemon;
     String pokeQuery;
-    List<Pokemon> Pokemons;
+    List<Pokemon> pokemons;
     public static  final String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.text);
         simpleRequestBtn = (Button) findViewById(R.id.button_test);
         getPokemon = (Button) findViewById(R.id.button_getPokemon);
+        pokemons = new ArrayList<>();
         simpleRequestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             Pokemon poke = new Pokemon();
+                            poke.setInfo(response);
+                            Log.d(TAG, "POKEMON AFTER SET INFO: " + poke.toString());
 
                             pokemonRetriever.getPokeDesc(
                                     response.getJSONObject("species").getString("url").toString(),
@@ -67,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
                                                 JSONArray flavor = response.getJSONArray("flavor_text_entries");
                                                 String desc = flavor.getJSONObject(0).getString("flavor_text").toString();
                                                 textView.setText(desc);
+                                                poke.setDescription(response);
+                                                pokemons.add(poke);
+                                                Log.d(TAG, "POKEMON: " + poke.toString());
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }

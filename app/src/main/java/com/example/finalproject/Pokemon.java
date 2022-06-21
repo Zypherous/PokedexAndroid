@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -149,25 +150,6 @@ public class Pokemon {
         this.height = height;
     }
 
-    @Override
-    public String toString() {
-        return "Pokemon{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", type1='" + type1 + '\'' +
-                ", type2='" + type2 + '\'' +
-                ", id=" + id +
-                ", hp=" + hp +
-                ", atk=" + atk +
-                ", def=" + def +
-                ", spAtk=" + spAtk +
-                ", spDef=" + spDef +
-                ", speed=" + speed +
-                ", weight=" + weight +
-                ", height=" + height +
-                '}';
-    }
-
     public void setInfo(JSONObject response){
         try {
             this.height = response.getInt("height");
@@ -198,7 +180,7 @@ public class Pokemon {
                         break;
                 }
                 this.spriteURL = response.getJSONObject("sprites").getString("front_default");
-                if(response.getJSONArray("tyoes").length() < 2){
+                if(response.getJSONArray("types").length() < 2){
                     this.type1 = response.getJSONArray("types").getJSONObject(0).getJSONObject("type").getString("name");
                     this.type2 = "NONE";
                 }else{
@@ -210,5 +192,42 @@ public class Pokemon {
             e.printStackTrace();
         }
 
+    }
+    public void setDescription(JSONObject response) {
+        try {
+            JSONArray flavor = response.getJSONArray("flavor_text_entries");
+            String desc = flavor.getJSONObject(0).getString("flavor_text").toString();
+            this.description = desc;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Pokemon{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", type1='" + type1 + '\'' +
+                ", type2='" + type2 + '\'' +
+                ", spriteURL='" + spriteURL + '\'' +
+                ", id=" + id +
+                ", hp=" + hp +
+                ", atk=" + atk +
+                ", def=" + def +
+                ", spAtk=" + spAtk +
+                ", spDef=" + spDef +
+                ", speed=" + speed +
+                ", weight=" + weight +
+                ", height=" + height +
+                '}';
+    }
+
+    public String getSpriteURL() {
+        return spriteURL;
+    }
+
+    public void setSpriteURL(String spriteURL) {
+        this.spriteURL = spriteURL;
     }
 }
