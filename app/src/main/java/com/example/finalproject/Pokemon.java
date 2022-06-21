@@ -1,18 +1,21 @@
 package com.example.finalproject;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Pokemon {
 
-    String name, description, type1, type2;
+    String name, description, type1, type2, spriteURL;
     int id,  hp, atk, def, spAtk, spDef, speed, weight, height;
 
     public Pokemon() {
     }
 
     public Pokemon(String name, String description, String type1, String type2,
-                   String evolution, int id, int hp, int atk, int def, int spAtk,
+                   String spriteURL, int id, int hp, int atk, int def, int spAtk,
                    int spDef, int speed, int weight, int height) {
         // JSON Object
-
+        this.spriteURL = spriteURL;
         // position 5
         this.height = height;
 
@@ -163,5 +166,49 @@ public class Pokemon {
                 ", weight=" + weight +
                 ", height=" + height +
                 '}';
+    }
+
+    public void setInfo(JSONObject response){
+        try {
+            this.height = response.getInt("height");
+            this.weight = response.getInt("weight");
+            this.name = response.getString("name");
+            this.id = response.getInt("id");
+            for( int i = 0; i < response.getJSONArray("stats").length();i++){
+                switch (i){
+                    case 0:
+                        this.hp = response.getJSONArray("stats").getJSONObject(0).getInt("base_stat");
+                        break;
+                    case 1:
+                        this.atk = response.getJSONArray("stats").getJSONObject(0).getInt("base_stat");
+                        break;
+                    case 2:
+                        this.def = response.getJSONArray("stats").getJSONObject(0).getInt("base_stat");
+                        break;
+                    case 3:
+                        this.spAtk = response.getJSONArray("stats").getJSONObject(0).getInt("base_stat");
+                        break;
+                    case 4:
+                        this.spDef = response.getJSONArray("stats").getJSONObject(0).getInt("base_stat");
+                        break;
+                    case 5:
+                        this.speed = response.getJSONArray("stats").getJSONObject(0).getInt("base_stat");
+                        break;
+                    default:
+                        break;
+                }
+                this.spriteURL = response.getJSONObject("sprites").getString("front_default");
+                if(response.getJSONArray("tyoes").length() < 2){
+                    this.type1 = response.getJSONArray("types").getJSONObject(0).getJSONObject("type").getString("name");
+                    this.type2 = "NONE";
+                }else{
+                    this.type1 = response.getJSONArray("types").getJSONObject(0).getJSONObject("type").getString("name");
+                    this.type2 = response.getJSONArray("types").getJSONObject(1).getJSONObject("type").getString("name");
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }

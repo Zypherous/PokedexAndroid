@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -48,10 +49,46 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            Pokemon poke = new Pokemon();
+
+                            pokemonRetriever.getPokeDesc(
+                                    response.getJSONObject("species").getString("url").toString(),
+                                    new PokemonRetriever.VolleyResponseListener() {
+                                        @Override
+                                        public void onError(String message) {
+
+                                        }
+
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            try {
+                                                JSONArray flavor = response.getJSONArray("flavor_text_entries");
+                                                String desc = flavor.getJSONObject(0).getString("flavor_text").toString();
+                                                textView.setText(desc);
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onResponse(String response) {
+
+                                        }
+                                    });
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
                     public void onResponse(String pokeName) {
                         Toast.makeText(MainActivity.this, "Returned Pokemon Named: " + pokeName, Toast.LENGTH_SHORT).show();
                         textView.setText(pokeName );
                         Log.d(TAG, "Pokemon name from onClick(): " + pokeName);
+
+
                     }
                 });
 
@@ -61,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                pokemonRetriever.getPokemonById(etDataInput.getText().toString(), view);
+                pokemonRetriever.getPokemonById(etDataInput.getText().toString());
 //
 //                , new PokemonRetriever.VolleyResponseListener() {
 //
