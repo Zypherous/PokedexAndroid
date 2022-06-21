@@ -145,4 +145,23 @@ public class Pokemon {
     public void setHeight(int height) {
         this.height = height;
     }
+
+    @Override
+    public String toString() {
+        return "Pokemon{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", type1='" + type1 + '\'' +
+                ", type2='" + type2 + '\'' +
+                ", id=" + id +
+                ", hp=" + hp +
+                ", atk=" + atk +
+                ", def=" + def +
+                ", spAtk=" + spAtk +
+                ", spDef=" + spDef +
+                ", speed=" + speed +
+                ", weight=" + weight +
+                ", height=" + height +
+                '}';
+    }
 }

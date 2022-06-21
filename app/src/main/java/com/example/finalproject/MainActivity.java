@@ -18,24 +18,29 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     TextView textView;
     EditText etDataInput;
-    Button simpleRequestBtn;
+    Button simpleRequestBtn, getPokemon;
     String pokeQuery;
+    List<Pokemon> Pokemons;
     public static  final String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        PokemonRetriever pokemonRetriever = new PokemonRetriever(MainActivity.this);
         etDataInput = findViewById(R.id.et_dataInput);
         pokeQuery = "10000";
         textView = (TextView) findViewById(R.id.text);
         simpleRequestBtn = (Button) findViewById(R.id.button_test);
+        getPokemon = (Button) findViewById(R.id.button_getPokemon);
         simpleRequestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PokemonRetriever pokemonRetriever = new PokemonRetriever(MainActivity.this);
+
                 pokemonRetriever.getPokeName(etDataInput.getText().toString(), new PokemonRetriever.VolleyResponseListener() {
                     @Override
                     public void onError(String message) {
@@ -50,6 +55,26 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+            }
+        });
+        getPokemon.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                pokemonRetriever.getPokemonById(etDataInput.getText().toString(), view);
+//
+//                , new PokemonRetriever.VolleyResponseListener() {
+//
+//                    @Override
+//                    public void onError(String message) {
+//                        Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
             }
         });
     }
