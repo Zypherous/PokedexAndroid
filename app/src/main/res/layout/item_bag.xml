@@ -6,69 +6,162 @@
     android:layout_height="match_parent"
     tools:context=".ItemBag">
 
-    <SurfaceView
-        android:id="@+id/surfaceView6"
-        android:layout_width="115dp"
-        android:layout_height="115dp"
-        tools:layout_editor_absoluteX="51dp"
-        tools:layout_editor_absoluteY="343dp" />
-
-    <SurfaceView
-        android:id="@+id/surfaceView3"
-        android:layout_width="115dp"
-        android:layout_height="115dp"
-        tools:layout_editor_absoluteX="51dp"
-        tools:layout_editor_absoluteY="343dp" />
-
-    <SurfaceView
-        android:id="@+id/surfaceView5"
-        android:layout_width="115dp"
-        android:layout_height="115dp"
-        tools:layout_editor_absoluteX="244dp"
-        tools:layout_editor_absoluteY="488dp" />
-
-    <SurfaceView
-        android:id="@+id/surfaceView7"
-        android:layout_width="115dp"
-        android:layout_height="115dp"
-        tools:layout_editor_absoluteX="51dp"
-        tools:layout_editor_absoluteY="488dp" />
-
-    <SurfaceView
-        android:id="@+id/surfaceView"
-        android:layout_width="115dp"
-        android:layout_height="115dp"
-        tools:layout_editor_absoluteX="51dp"
-        tools:layout_editor_absoluteY="198dp" />
-
-    <SurfaceView
-        android:id="@+id/surfaceView2"
-        android:layout_width="115dp"
-        android:layout_height="115dp"
-        tools:layout_editor_absoluteX="244dp"
-        tools:layout_editor_absoluteY="198dp" />
-
-    <SurfaceView
-        android:id="@+id/surfaceView4"
-        android:layout_width="115dp"
-        android:layout_height="115dp"
-        tools:layout_editor_absoluteX="244dp"
-        tools:layout_editor_absoluteY="343dp" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="405dp"
-        android:layout_height="496dp"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="3dp"
-        tools:layout_editor_absoluteY="49dp" />
-
-    <Button
-        android:id="@+id/button"
+    <ImageView
+        android:id="@+id/pokeViewOne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="157dp"
-        tools:layout_editor_absoluteY="607dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.211"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.37"
+        app:srcCompat="@drawable/ic_launcher_background"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/pokeViewFour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/pokeViewSix"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toEndOf="@+id/pokeViewThree"
+        app:layout_constraintTop_toBottomOf="@+id/pokeViewTwo"
+        app:layout_constraintVertical_bias="0.477"
+        app:srcCompat="@drawable/ic_launcher_background"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/pokeViewThree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.211"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pokeViewOne"
+        app:layout_constraintVertical_bias="0.112"
+        app:srcCompat="@drawable/ic_launcher_background"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/pokeViewTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toEndOf="@+id/pokeViewOne"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.37"
+        app:srcCompat="@drawable/ic_launcher_background"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/pokeViewSix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toEndOf="@+id/pokeViewFive"
+        app:layout_constraintTop_toBottomOf="@+id/pokeViewTwo"
+        app:layout_constraintVertical_bias="0.614"
+        app:srcCompat="@drawable/ic_launcher_background"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/pokeViewFive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.211"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pokeViewThree"
+        app:layout_constraintVertical_bias="0.237"
+        app:srcCompat="@drawable/ic_launcher_background"
+        tools:ignore="ContentDescription" />
+
+    <ImageButton
+        android:id="@+id/DrawCardsActionId"
+        android:layout_width="132dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pokeViewFive"
+        app:srcCompat="@drawable/ic_launcher_background"
+        tools:ignore="ContentDescription,MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/playerImageId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/pokeViewOne"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.105"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/PokeLogoId"
+        app:layout_constraintVertical_bias="0.384"
+        app:srcCompat="@drawable/ic_launcher_foreground"
+        tools:ignore="ContentDescription" />
+
+    <ImageButton
+        android:id="@+id/searchButtonId"
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        app:layout_constraintBottom_toTopOf="@+id/pokeViewTwo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/searchBar"
+        app:layout_constraintTop_toBottomOf="@+id/playerName"
+        app:layout_constraintVertical_bias="0.529"
+        app:srcCompat="@android:drawable/ic_menu_search"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/playerName"
+        android:layout_width="199dp"
+        android:layout_height="41dp"
+        android:hint="@string/null"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/searchBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.069"
+        app:layout_constraintStart_toEndOf="@+id/playerImageId"
+        app:layout_constraintTop_toBottomOf="@+id/PokeLogoId" />
+
+    <EditText
+        android:id="@+id/searchBar"
+        android:layout_width="199dp"
+        android:layout_height="41dp"
+        android:hint="@string/search"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/pokeViewTwo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.069"
+        app:layout_constraintStart_toEndOf="@+id/playerImageId"
+        app:layout_constraintTop_toBottomOf="@+id/PokeLogoId"
+        app:layout_constraintVertical_bias="0.827"
+        tools:ignore="Autofill,MissingConstraints,TextFields">
+
+    </EditText>
+
+    <ImageView
+        android:id="@+id/PokeLogoId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.033"
+        app:srcCompat="@drawable/ic_international_pok_mon_logo"
+        tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
