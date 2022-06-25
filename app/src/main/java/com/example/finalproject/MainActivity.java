@@ -21,6 +21,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     TextView textView;
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                pokemonRetriever.getPokemonById(etDataInput.getText().toString());
+                pokemonRetriever.getPokemonById(etDataInput.getText().toString().toLowerCase(Locale.ROOT));
 //
 //                , new PokemonRetriever.VolleyResponseListener() {
 //
