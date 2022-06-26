@@ -59,9 +59,10 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             Pokemon poke = new Pokemon();
-                            pokemonRetriever.makePokemon(poke, response);
+                            pokemonRetriever.makePokemon(poke, response, pokemons, textView);
                             textView.setText(poke.getDescription());
-                            pokemons.add(poke);
+
+                            Log.d("MainActivity", "Pokemon added: " + poke.toString());
 //                            poke.setInfo(response);
 //                            Log.d(TAG, "POKEMON AFTER SET INFO: " + poke.toString());
 //

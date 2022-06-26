@@ -11,6 +11,7 @@ public class Pokemon implements Parcelable {
 
     String name, description, type1, type2, spriteURL,spriteURLBack;
     int id,  hp, atk, def, spAtk, spDef, speed, weight, height;
+    boolean favorite;
 
 
     public Pokemon() {
@@ -48,6 +49,7 @@ public class Pokemon implements Parcelable {
 
         // array at 18(17?)
         this.weight = weight;
+        favorite = false;
     }
 
     public String getName() {
@@ -166,19 +168,19 @@ public class Pokemon implements Parcelable {
                         this.hp = response.getJSONArray("stats").getJSONObject(0).getInt("base_stat");
                         break;
                     case 1:
-                        this.atk = response.getJSONArray("stats").getJSONObject(0).getInt("base_stat");
+                        this.atk = response.getJSONArray("stats").getJSONObject(1).getInt("base_stat");
                         break;
                     case 2:
-                        this.def = response.getJSONArray("stats").getJSONObject(0).getInt("base_stat");
+                        this.def = response.getJSONArray("stats").getJSONObject(2).getInt("base_stat");
                         break;
                     case 3:
-                        this.spAtk = response.getJSONArray("stats").getJSONObject(0).getInt("base_stat");
+                        this.spAtk = response.getJSONArray("stats").getJSONObject(3).getInt("base_stat");
                         break;
                     case 4:
-                        this.spDef = response.getJSONArray("stats").getJSONObject(0).getInt("base_stat");
+                        this.spDef = response.getJSONArray("stats").getJSONObject(4).getInt("base_stat");
                         break;
                     case 5:
-                        this.speed = response.getJSONArray("stats").getJSONObject(0).getInt("base_stat");
+                        this.speed = response.getJSONArray("stats").getJSONObject(5).getInt("base_stat");
                         break;
                     default:
                         break;
@@ -206,26 +208,6 @@ public class Pokemon implements Parcelable {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Pokemon{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", type1='" + type1 + '\'' +
-                ", type2='" + type2 + '\'' +
-                ", spriteURL='" + spriteURL + '\'' +
-                ", id=" + id +
-                ", hp=" + hp +
-                ", atk=" + atk +
-                ", def=" + def +
-                ", spAtk=" + spAtk +
-                ", spDef=" + spDef +
-                ", speed=" + speed +
-                ", weight=" + weight +
-                ", height=" + height +
-                '}';
     }
 
     public String getSpriteURL() {
@@ -264,6 +246,7 @@ public class Pokemon implements Parcelable {
         dest.writeInt(speed);
         dest.writeInt(weight);
         dest.writeInt(height);
+        dest.writeByte((byte) (favorite ? 1 : 0));
     }
 
     public static final Parcelable.Creator<Pokemon> CREATOR = new Parcelable.Creator<Pokemon>() {
@@ -292,5 +275,36 @@ public class Pokemon implements Parcelable {
         speed = in.readInt();
         weight = in.readInt();
         height = in.readInt();
+        favorite = in.readByte() != 0;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
+    @Override
+    public String toString() {
+        return "Pokemon{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", type1='" + type1 + '\'' +
+                ", type2='" + type2 + '\'' +
+                ", spriteURL='" + spriteURL + '\'' +
+                ", spriteURLBack='" + spriteURLBack + '\'' +
+                ", id=" + id +
+                ", hp=" + hp +
+                ", atk=" + atk +
+                ", def=" + def +
+                ", spAtk=" + spAtk +
+                ", spDef=" + spDef +
+                ", speed=" + speed +
+                ", weight=" + weight +
+                ", height=" + height +
+                ", favorite=" + favorite +
+                '}';
     }
 }
