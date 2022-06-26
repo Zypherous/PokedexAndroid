@@ -1,13 +1,17 @@
 package com.example.finalproject;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Pokemon {
+public class Pokemon implements Parcelable {
 
-    String name, description, type1, type2, spriteURL;
+    String name, description, type1, type2, spriteURL,spriteURLBack;
     int id,  hp, atk, def, spAtk, spDef, speed, weight, height;
+
 
     public Pokemon() {
     }
@@ -180,6 +184,7 @@ public class Pokemon {
                         break;
                 }
                 this.spriteURL = response.getJSONObject("sprites").getString("front_default");
+                this.spriteURLBack = response.getJSONObject("sprites").getString("back_default");
                 if(response.getJSONArray("types").length() < 2){
                     this.type1 = response.getJSONArray("types").getJSONObject(0).getJSONObject("type").getString("name");
                     this.type2 = "NONE";
@@ -226,8 +231,66 @@ public class Pokemon {
     public String getSpriteURL() {
         return spriteURL;
     }
+    public String getSpriteURLBack() {
+        return spriteURLBack;
+    }
 
     public void setSpriteURL(String spriteURL) {
         this.spriteURL = spriteURL;
+    }
+    public void setSpriteURLBack(String spriteURLBack) {
+        this.spriteURLBack = spriteURLBack;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(description);
+        dest.writeString(type1);
+        dest.writeString(type2);
+        dest.writeString(spriteURL);
+        dest.writeString(spriteURLBack);
+        dest.writeInt(id);
+        dest.writeInt(hp);
+        dest.writeInt(atk);
+        dest.writeInt(def);
+        dest.writeInt(spAtk);
+        dest.writeInt(spDef);
+        dest.writeInt(speed);
+        dest.writeInt(weight);
+        dest.writeInt(height);
+    }
+
+    public static final Parcelable.Creator<Pokemon> CREATOR = new Parcelable.Creator<Pokemon>() {
+        public Pokemon createFromParcel(Parcel in) {
+            return new Pokemon(in);
+        }
+
+        public Pokemon[] newArray(int size) {
+            return new Pokemon[size];
+        }
+    };
+
+    private Pokemon(Parcel in) {
+        name = in.readString();
+        description = in.readString();
+        type1 = in.readString();
+        type2 = in.readString();
+        spriteURL = in.readString();
+        spriteURLBack = in.readString();
+        id = in.readInt();
+        hp = in.readInt();
+        atk = in.readInt();
+        def = in.readInt();
+        spAtk = in.readInt();
+        spDef = in.readInt();
+        speed = in.readInt();
+        weight = in.readInt();
+        height = in.readInt();
     }
 }

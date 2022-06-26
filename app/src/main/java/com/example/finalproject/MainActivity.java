@@ -2,6 +2,7 @@ package com.example.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
     String pokeQuery;
     List<Pokemon> pokemons;
     public static  final String TAG = "MainActivity";
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,12 +44,11 @@ public class MainActivity extends AppCompatActivity {
         pokeQuery = "10000";
         textView = (TextView) findViewById(R.id.text);
         simpleRequestBtn = (Button) findViewById(R.id.button_test);
-        getPokemon = (Button) findViewById(R.id.button_getPokemon);
+        getPokemon = (Button) findViewById(R.id.button_nextIntent);
         pokemons = new ArrayList<>();
         simpleRequestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 pokemonRetriever.getPokeName(etDataInput.getText().toString(), new PokemonRetriever.VolleyResponseListener() {
                     @Override
                     public void onError(String message) {
@@ -56,36 +59,38 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             Pokemon poke = new Pokemon();
-                            poke.setInfo(response);
-                            Log.d(TAG, "POKEMON AFTER SET INFO: " + poke.toString());
-
-                            pokemonRetriever.getPokeDesc(
-                                    response.getJSONObject("species").getString("url").toString(),
-                                    new PokemonRetriever.VolleyResponseListener() {
-                                        @Override
-                                        public void onError(String message) {
-
-                                        }
-
-                                        @Override
-                                        public void onResponse(JSONObject response) {
-                                            try {
-                                                JSONArray flavor = response.getJSONArray("flavor_text_entries");
-                                                String desc = flavor.getJSONObject(0).getString("flavor_text").toString();
-                                                textView.setText(desc);
-                                                poke.setDescription(response);
-                                                pokemons.add(poke);
-                                                Log.d(TAG, "POKEMON: " + poke.toString());
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onResponse(String response) {
-
-                                        }
-                                    });
+                            pokemonRetriever.makePokemon(poke, response);
+                            textView.setText(poke.getDescription());
+//                            poke.setInfo(response);
+//                            Log.d(TAG, "POKEMON AFTER SET INFO: " + poke.toString());
+//
+//                            pokemonRetriever.getPokeDesc(
+//                                    response.getJSONObject("species").getString("url").toString(),
+//                                    new PokemonRetriever.VolleyResponseListener() {
+//                                        @Override
+//                                        public void onError(String message) {
+//
+//                                        }
+//
+//                                        @Override
+//                                        public void onResponse(JSONObject response) {
+//                                            try {
+//                                                JSONArray flavor = response.getJSONArray("flavor_text_entries");
+//                                                String desc = flavor.getJSONObject(0).getString("flavor_text").toString();
+//                                                textView.setText(desc);
+//                                                poke.setDescription(response);
+//                                                pokemons.add(poke);
+//                                                Log.d(TAG, "POKEMON: " + poke.toString());
+//                                            } catch (JSONException e) {
+//                                                e.printStackTrace();
+//                                            }
+//                                        }
+//
+//                                        @Override
+//                                        public void onResponse(String response) {
+//
+//                                        }
+//                                    });
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -104,23 +109,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         getPokemon.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View view) {
-                pokemonRetriever.getPokemonById(etDataInput.getText().toString().toLowerCase(Locale.ROOT));
-//
-//                , new PokemonRetriever.VolleyResponseListener() {
-//
-//                    @Override
-//                    public void onError(String message) {
-//                        Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
+                Intent intent = new Intent(MainActivity.this, PokemonDetailsActivity.class);
+                intent.putExtra("POKEMON", pokemons.get(0));
+                startActivity(intent);
             }
         });
     }
