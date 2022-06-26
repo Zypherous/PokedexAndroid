@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         simpleRequestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pokemonRetriever.getPokeName(etDataInput.getText().toString(), new PokemonRetriever.VolleyResponseListener() {
+                pokemonRetriever.getPokeName(etDataInput.getText().toString().toLowerCase(), new PokemonRetriever.VolleyResponseListener() {
                     @Override
                     public void onError(String message) {
                         Toast.makeText(MainActivity.this, "Something Wrong", Toast.LENGTH_SHORT).show();
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                             Pokemon poke = new Pokemon();
                             pokemonRetriever.makePokemon(poke, response);
                             textView.setText(poke.getDescription());
+                            pokemons.add(poke);
 //                            poke.setInfo(response);
 //                            Log.d(TAG, "POKEMON AFTER SET INFO: " + poke.toString());
 //
