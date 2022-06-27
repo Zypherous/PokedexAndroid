@@ -28,6 +28,8 @@ public class SecondFragment extends Fragment {
     ) {
 
         binding = FragmentSecondBinding.inflate(inflater, container, false);
+        connectViews();
+        setImages();
         return binding.getRoot();
 
     }
@@ -36,10 +38,11 @@ public class SecondFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = getArguments();
         poke = bundle.getParcelable("POKEMON");
-        Log.d("SecondFrag","Second frag bundle: " +poke.toString());
-        connectViews();
         setTextValues();
         setImages();
+        Log.d("SecondFrag","Second frag bundle: " +poke.toString());
+
+
         fav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,6 +56,7 @@ public class SecondFragment extends Fragment {
                 bundle.putParcelable("POKEMON" , poke);
                 NavHostFragment.findNavController(SecondFragment.this)
                         .navigate(R.id.action_SecondFragment_to_FirstFragment,bundle);
+
             }
         });
     }
@@ -62,6 +66,9 @@ public class SecondFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+    //TODO: START HERE KEEP GETTING NULL WHEN TRYING TO CONNECT VIEWS TO SECOND FRAGMENT
+    // ============================================================================
+    // ============================================================================
     public void connectViews(){
         fav = getView().findViewById(R.id.iv_fav2);
         pokeBackSprite = getView().findViewById(R.id.iv_poke_sprite_back);
@@ -73,6 +80,7 @@ public class SecondFragment extends Fragment {
         desc = getView().findViewById(R.id.description);
     }
     public void setTextValues(){
+//        connectViews();
         weight.setText(String.format("%.2f kg",poke.getWeight() * .1));
 //        Log.d(TAG, "Value of Weight: " + poke.getWeight());
         height.setText(String.format("%.2f  m",poke.getHeight() * .1));
