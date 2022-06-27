@@ -28,8 +28,7 @@ public class SecondFragment extends Fragment {
     ) {
 
         binding = FragmentSecondBinding.inflate(inflater, container, false);
-        connectViews();
-        setImages();
+
         return binding.getRoot();
 
     }
@@ -37,7 +36,17 @@ public class SecondFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = getArguments();
+
         poke = bundle.getParcelable("POKEMON");
+//        fav = view.findViewById(R.id.iv_fav2)pikachu;
+//        pokeBackSprite = view.findViewById(R.id.iv_poke_sprite_back);
+//        type1 = view.findViewById(R.id.tv_type_1_b);
+//        type2 = view.findViewById(R.id.tv_type_2_b);
+//        weight = view.findViewById(R.id.tv_weight_b);
+//        height = view.findViewById(R.id.tv_height_b);
+//        name = view.findViewById(R.id.tv_poke_name_b);
+//        desc = view.findViewById(R.id.description);
+        connectViews();
         setTextValues();
         setImages();
         Log.d("SecondFrag","Second frag bundle: " +poke.toString());
@@ -66,9 +75,7 @@ public class SecondFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-    //TODO: START HERE KEEP GETTING NULL WHEN TRYING TO CONNECT VIEWS TO SECOND FRAGMENT
-    // ============================================================================
-    // ============================================================================
+
     public void connectViews(){
         fav = getView().findViewById(R.id.iv_fav2);
         pokeBackSprite = getView().findViewById(R.id.iv_poke_sprite_back);
