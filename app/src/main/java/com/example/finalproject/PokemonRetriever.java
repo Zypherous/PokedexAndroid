@@ -140,7 +140,7 @@ public class PokemonRetriever {
 
     public void addPokeToList(List<Pokemon> pokemons,Pokemon poke, TextView tv){
         pokemons.add(poke);
-        tv.setText(pokemons.get(0).getDescription());
+        tv.setText(pokemons.get(pokemons.indexOf(poke)).getDescription());
     }
 
 }

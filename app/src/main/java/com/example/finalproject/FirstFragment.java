@@ -35,9 +35,7 @@ public class FirstFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-//        Bundle bundle = getArguments();
-//        poke = bundle.getParcelable("Pokemon");
-//        Log.d("FirstFrag", "Pokemon: " + poke.toString());
+
         binding = FragmentFirstBinding.inflate(inflater, container, false);
 
         return binding.getRoot();
@@ -54,11 +52,19 @@ public class FirstFragment extends Fragment {
         setImages();
 //        determineMaxStat();
         determineProgress();
+        fav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFav();
+            }
+        });
         binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("POKEMON", poke);
                 NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                        .navigate(R.id.action_FirstFragment_to_SecondFragment, bundle);
             }
         });
     }
@@ -164,26 +170,63 @@ public class FirstFragment extends Fragment {
 //        spAtk.setX((float)spAtkProg);
 //        spDef.setX((float)spDefProg);
 //        speed.setX((float) spdProg);
-        attachToProgress(barHp,hp);
-        attachToProgress(barAtk,atk);
-        attachToProgress(barDef,def);
-        attachToProgress(barSpAtk,spAtk);
-        attachToProgress(barSpDef,spDef);
-        attachToProgress(barSpeed,speed);
+        attachToProgress(barHp,hp,(int) hpProg);
+        attachToProgress(barAtk,atk, (int)atkProg);
+        attachToProgress(barDef,def, (int)defProg);
+        attachToProgress(barSpAtk,spAtk, (int)spAtkProg);
+        attachToProgress(barSpDef,spDef,(int) spDefProg);
+        attachToProgress(barSpeed,speed, (int) spdProg);
     }
-    public void attachToProgress(ProgressBar progressBar, TextView textView) {
+    public void attachToProgress(ProgressBar progressBar, TextView textView, int margin) {
+        String TG = "AtP";
+//        RelativeLayout.LayoutParams pBar = (RelativeLayout.LayoutParams) progressBar.getLayoutParams();
+//        pBar.
+//        int  width = progressBar.getMeasuredWidth();
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) textView.getLayoutParams();
-        String content = textView.getText().toString();
-        int width = 0;
-        if (TextUtils.isEmpty(content) || progressBar == null)
-            return;
-        float contentWidth = textView.getPaint().measureText(content);
-        int realWidth = width - progressBar.getPaddingLeft() - progressBar.getPaddingRight();
-        int maxLimit = (int) (width - contentWidth - progressBar.getPaddingRight());
-        int minLimit = progressBar.getPaddingLeft();
-        float percent = (float) (1.0 * progressBar.getProgress() / progressBar.getMax());
-        int left = minLimit + (int) (realWidth * percent - contentWidth / 2.0);
-        left = left <= minLimit ? minLimit : left >= maxLimit ? maxLimit : left;
-        layoutParams.setMargins(left, 0, 0, 0);
+        float scale = getContext().getResources().getDisplayMetrics().density;
+//        Log.d(TG, "DENSITY = " + scale + " WIDTH = " + width);
+//        String content = textView.getText().toString();
+//        int width = 0;
+//        float contentWidth = textView.getPaint().measureText(content);
+//        Log.d(TG, "Content Width = "+ contentWidth);
+////        int realWidth = width - progressBar.getPaddingLeft() - progressBar.getPaddingRight();
+////        Log.d(TG, "Padding Left: " + progressBar.getPaddingLeft() + "  Padding right: " + progressBar.getPaddingRight());
+////        Log.d(TG, "RealWidth = " + realWidth);
+//        int maxLimit = 100;
+////        Log.d(TG, "MaxLimit = " + maxLimit);
+//        int minLimit = 20;
+//        float percent = (float) (1.0 * progressBar.getProgress() / progressBar.getMax());
+//        Log.d(TG, "Prg BAr MAx: ============>     "+progressBar.getMax());
+//        Log.d(TG, "Percent = " + percent);
+//        int left = minLimit + (int) (percent - contentWidth / 2.0);
+//        Log.d(TG, "Left = " + left);
+//        left = left <= minLimit ? minLimit : left >= maxLimit ? maxLimit : left;
+//        Log.d(TG, "Second left = " + left);
+        progressBar.post(new Runnable() {
+            @Override
+            public void run() {
+                int width = progressBar.getWidth(); //height is ready
+                int tvWidth = textView.getWidth();
+                Log.d(TG, "marginStart for   = "+layoutParams.getMarginStart() + " width for bar = " + width);
+                layoutParams.setMarginStart(  (int)((margin/100.0)*(int)Math.ceil((width)) - tvWidth));
+                Log.d(TG, "LayoutParam MArgin after: " + layoutParams.getMarginStart());
+                if(layoutParams.getMarginStart() > width*.9){
+                    layoutParams.setMarginStart(width - (int)(width*.2));
+                } else if(layoutParams.getMarginStart() < width *.2){
+                    layoutParams.setMarginStart(width- (int)(width*.8));
+                }else {
+                    textView.setLayoutParams(layoutParams);
+                }
+            }
+        });
+
+
+    }
+    public void setFav(){
+        poke.setFavorite(!poke.isFavorite());
+        Glide.with(this)
+                .load((poke.isFavorite() ? R.drawable.ic_baseline_favorite_24:R.drawable.ic_baseline_favorite_border_24))
+                .override(48,48)
+                .into(fav);
     }
 }

@@ -113,9 +113,16 @@ public class MainActivity extends AppCompatActivity {
         getPokemon.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, PokemonDetailsActivity.class);
-                intent.putExtra("POKEMON", pokemons.get(0));
-                startActivity(intent);
+                if(!pokemons.isEmpty()) {
+                    Intent intent = new Intent(MainActivity.this, PokemonDetailsActivity.class);
+                    int index = 0;
+                    for (Pokemon poke : pokemons) {
+                        if (poke.getName().toLowerCase().equals(etDataInput.getText().toString().toLowerCase())) {
+                            intent.putExtra("POKEMON", pokemons.get(pokemons.indexOf(poke)));
+                            startActivity(intent);
+                        }
+                    }
+                }
             }
         });
     }
