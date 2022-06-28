@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -20,7 +21,8 @@ public class SecondFragment extends Fragment {
     private FragmentSecondBinding binding;
     Pokemon poke;
     ImageView fav, pokeBackSprite;
-    TextView weight, height, name, desc, type1,type2;
+    TextView weight, height, name, desc, type1,type2, pokeNum;
+    CardView cardView;
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -85,6 +87,8 @@ public class SecondFragment extends Fragment {
         height = getView().findViewById(R.id.tv_height_b);
         name = getView().findViewById(R.id.tv_poke_name_b);
         desc = getView().findViewById(R.id.description);
+        cardView = getView().findViewById(R.id.view2_b);
+        pokeNum = getView().findViewById(R.id.tv_poke_num_b);
     }
     public void setTextValues(){
 //        connectViews();
@@ -97,6 +101,7 @@ public class SecondFragment extends Fragment {
         desc.setText(poke.getDescription());
         type1.setText(poke.getType1().toUpperCase());
         type2.setText(poke.getType2().toUpperCase());
+        pokeNum.setText(String.format("No. %d",poke.getId()));
     }
     public void setImages(){
         Glide.with(this)

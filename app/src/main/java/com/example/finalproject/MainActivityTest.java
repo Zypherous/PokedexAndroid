@@ -8,24 +8,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivityTest extends AppCompatActivity {
+    private static final int DONE = 1;
     TextView textView;
     EditText etDataInput;
     Button simpleRequestBtn, getPokemon;
@@ -38,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        PokemonRetriever pokemonRetriever = new PokemonRetriever(MainActivity.this);
+        setContentView(R.layout.activity_main_test);
+        PokemonRetriever pokemonRetriever = new PokemonRetriever(MainActivityTest.this);
         etDataInput = findViewById(R.id.et_dataInput);
         pokeQuery = "10000";
         textView = (TextView) findViewById(R.id.text);
@@ -52,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 pokemonRetriever.getPokeName(etDataInput.getText().toString().toLowerCase(), new PokemonRetriever.VolleyResponseListener() {
                     @Override
                     public void onError(String message) {
-                        Toast.makeText(MainActivity.this, "Something Wrong", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivityTest.this, "Something Wrong", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -100,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(String pokeName) {
-                        Toast.makeText(MainActivity.this, "Returned Pokemon Named: " + pokeName, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivityTest.this, "Returned Pokemon Named: " + pokeName, Toast.LENGTH_SHORT).show();
                         textView.setText(pokeName );
                         Log.d(TAG, "Pokemon name from onClick(): " + pokeName);
 
@@ -114,12 +107,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(!pokemons.isEmpty()) {
-                    Intent intent = new Intent(MainActivity.this, PokemonDetailsActivity.class);
-                    int index = 0;
+                    Intent intent = new Intent(MainActivityTest.this, PokemonDetailsActivity.class);
                     for (Pokemon poke : pokemons) {
                         if (poke.getName().toLowerCase().equals(etDataInput.getText().toString().toLowerCase())) {
                             intent.putExtra("POKEMON", pokemons.get(pokemons.indexOf(poke)));
-                            startActivity(intent);
+                            startActivityForResult(intent, DONE);
                         }
                     }
                 }

@@ -15,6 +15,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -26,8 +27,9 @@ public class FirstFragment extends Fragment {
     private FragmentFirstBinding binding;
     Pokemon poke;
     ImageView fav, pokeSprite;
-    TextView type1, type2, weight, height, name, hp, atk, def, spAtk, spDef, speed;
+    TextView type1, type2, weight, height, name, hp, atk, def, spAtk, spDef, speed, pokeNum;
     ProgressBar barHp, barAtk, barDef, barSpAtk, barSpDef, barSpeed;
+    CardView cardView;
     static final int MAX = 255;
 //    public Context context;
     @Override
@@ -95,6 +97,8 @@ public class FirstFragment extends Fragment {
         barSpAtk = getView().findViewById(R.id.bar_sp_atk);
         barSpDef = getView().findViewById(R.id.bar_sp_def);
         barSpeed = getView().findViewById(R.id.bar_speed);
+        cardView = getView().findViewById(R.id.view2);
+        pokeNum = getView().findViewById(R.id.tv_poke_num);
     }
 
     public void setTextValues(){
@@ -118,6 +122,7 @@ public class FirstFragment extends Fragment {
         Log.d(TAG, "Value of name: " + poke.getName());
         type1.setText(poke.getType1().toUpperCase());
         type2.setText(poke.getType2().toUpperCase());
+        pokeNum.setText(String.format("No. %d",poke.getId()));
     }
     public void setImages(){
         Glide.with(this)
@@ -212,8 +217,8 @@ public class FirstFragment extends Fragment {
                 Log.d(TG, "LayoutParam MArgin after: " + layoutParams.getMarginStart());
                 if(layoutParams.getMarginStart() > width*.9){
                     layoutParams.setMarginStart(width - (int)(width*.2));
-                } else if(layoutParams.getMarginStart() < width *.2){
-                    layoutParams.setMarginStart(width- (int)(width*.8));
+//                } else if(layoutParams.getMarginStart() < width *.2){
+//                    layoutParams.setMarginStart(width- (int)(width*.8));
                 }else {
                     textView.setLayoutParams(layoutParams);
                 }

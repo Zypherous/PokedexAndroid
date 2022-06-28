@@ -2,6 +2,7 @@ package com.example.finalproject;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -106,7 +107,7 @@ public class PokemonRetriever {
         RequestSingleton.getInstance(context ).addToRequestQueue(request);
     }
 
-    public void makePokemon(Pokemon poke, JSONObject response, List<Pokemon> pokemons, TextView tv) throws JSONException {
+    public void makePokemon(Pokemon poke, JSONObject response, List<Pokemon> pokemons, View v) throws JSONException {
         poke.setInfo(response);
         Log.d(TAG, "POKEMON AFTER SET INFO: " + poke.toString());
         getPokeDesc(
@@ -122,7 +123,7 @@ public class PokemonRetriever {
                             JSONArray flavor = response.getJSONArray("flavor_text_entries");
                             String desc = flavor.getJSONObject(0).getString("flavor_text").toString();
                             poke.setDescription(response);
-                            addPokeToList(pokemons, poke, tv);
+                            addPokeToList(pokemons, poke, v);
                             Log.d(TAG, "POKEMON: " + poke.toString());
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -138,8 +139,9 @@ public class PokemonRetriever {
 
     }
 
-    public void addPokeToList(List<Pokemon> pokemons,Pokemon poke, TextView tv){
+    public void addPokeToList(List<Pokemon> pokemons,Pokemon poke, View v){
         pokemons.add(poke);
+        TextView tv = (TextView)v;
         tv.setText(pokemons.get(pokemons.indexOf(poke)).getDescription());
     }
 
