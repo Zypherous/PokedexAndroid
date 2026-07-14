@@ -3,8 +3,9 @@
 A native Android Pokédex written in **Java**. Browses Pokémon from a REST API, loads sprite artwork, and displays each Pokémon's stats in a detail view.
 
 <p align="center">
-  <img src="docs/screenshot-list.png" width="30%" alt="Pokemon list" />
-  <img src="docs/screenshot-detail.png" width="30%" alt="Pokemon details with stats" />
+  <img src="docs/screenshottitle.png" width="30%" alt="Pokemon Title" />
+  <img src="docs/screenshotdrawpokemon.png" width="30%" alt="Pokemon details with stats" />
+  <img src="docs/screenshotauth.png" width="30%" alt="Account Creation" />
 </p>
 <!-- Run in Android Studio's emulator, screenshot the list and a detail screen,
      save as docs/screenshot-list.png and docs/screenshot-detail.png -->
