@@ -16,6 +16,7 @@ A native Android Pokédex written in **Java**. Browses Pokémon from a REST API,
 - Detail screen with per-Pokémon stat visualization
 - Image loading and caching for sprite artwork
 - Fragment-based navigation between list and detail views
+- Firestore database for authentication and account information
 
 ## Tech stack
 
